@@ -16,6 +16,11 @@
 
 package com.android.settings;
 
+import com.android.settings.profiles.ProfileEnabler;
+import com.android.settings.slim.TRDSEnabler;
+import com.android.settings.vpn2.VpnSettings;
+import com.android.settings.wifi.WifiEnabler;
+import com.android.settings.GPSEnabler;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
@@ -165,6 +170,11 @@ public class Settings extends PreferenceActivity
             R.id.print_settings,
             R.id.nfc_payment_settings,
             R.id.home_settings
+            R.id.launcher_settings,
+            R.id.lock_screen_settings,
+            R.id.themes_settings,
+            R.id.hybrid_settings,
+            R.id.advanced_settings
     };
 
     private SharedPreferences mDevelopmentPreferences;
@@ -625,6 +635,12 @@ public class Settings extends PreferenceActivity
                 }
             } else if (id == R.id.superuser) {
                 if (!DevelopmentSettings.isRootForAppsEnabled()) {
+            } else if (id == R.id.pac_section) {
+                if (!onIsMultiPane()) {
+                    target.remove(i);
+                }
+            } else if (id == R.id.pac_settings) {
+                if (!onIsMultiPane()) {
                     target.remove(i);
                 }
             }
@@ -803,9 +819,13 @@ public class Settings extends PreferenceActivity
         static final int HEADER_TYPE_BUTTON = 3;
         private static final int HEADER_TYPE_COUNT = HEADER_TYPE_BUTTON + 1;
 
+        static final int HEADER_TYPE_STATUS = 3;
+        private static final int HEADER_TYPE_COUNT = HEADER_TYPE_STATUS + 1;
         private final WifiEnabler mWifiEnabler;
         private final BluetoothEnabler mBluetoothEnabler;
         private final ProfileEnabler mProfileEnabler;
+        private final TRDSEnabler mTRDSEnabler;
+        private final GPSEnabler mGPSEnabler;
         private AuthenticatorHelper mAuthHelper;
         private DevicePolicyManager mDevicePolicyManager;
 
@@ -816,6 +836,7 @@ public class Settings extends PreferenceActivity
             Switch switch_;
             ImageButton button_;
             View divider_;
+            TextView status_;
         }
 
         private LayoutInflater mInflater;
@@ -824,8 +845,10 @@ public class Settings extends PreferenceActivity
             if (header.fragment == null && header.intent == null) {
                 return HEADER_TYPE_CATEGORY;
             } else if (header.id == R.id.wifi_settings
-                    || header.id == R.id.bluetooth_settings
-                    || header.id == R.id.profiles_settings) {
+                     || header.id == R.id.bluetooth_settings
+                     || header.id == R.id.profiles_settings
+                     || header.id == R.id.location_settings
+                     || header.id == R.id.trds_settings) {
                 return HEADER_TYPE_SWITCH;
             } else if (header.id == R.id.security_settings) {
                 return HEADER_TYPE_BUTTON;
@@ -873,6 +896,8 @@ public class Settings extends PreferenceActivity
             mBluetoothEnabler = new BluetoothEnabler(context, new Switch(context));
             mProfileEnabler = new ProfileEnabler(context, new Switch(context));
             mDevicePolicyManager = dpm;
+            mTRDSEnabler = new TRDSEnabler(context, new Switch(context));
+            mGPSEnabler = new GPSEnabler(context, new Switch(context));
         }
 
         @Override
@@ -904,6 +929,8 @@ public class Settings extends PreferenceActivity
 
                     case HEADER_TYPE_BUTTON:
                         view = mInflater.inflate(R.layout.preference_header_button_item, parent,
+                    case HEADER_TYPE_STATUS:
+                        view = mInflater.inflate(R.layout.preference_header_status_item, parent,
                                 false);
                         holder.icon = (ImageView) view.findViewById(R.id.icon);
                         holder.title = (TextView)
@@ -912,6 +939,7 @@ public class Settings extends PreferenceActivity
                                 view.findViewById(com.android.internal.R.id.summary);
                         holder.button_ = (ImageButton) view.findViewById(R.id.buttonWidget);
                         holder.divider_ = view.findViewById(R.id.divider);
+                        holder.status_ = (TextView) view.findViewById(R.id.textStatus);
                         break;
 
                     case HEADER_TYPE_NORMAL:
@@ -945,6 +973,11 @@ public class Settings extends PreferenceActivity
                         mBluetoothEnabler.setSwitch(holder.switch_);
                     } else if (header.id == R.id.profiles_settings) {
                         mProfileEnabler.setSwitch(holder.switch_);
+                    } else if (header.id == R.id.location_settings) {
+                        mGPSEnabler.setSwitch(holder.switch_);
+                    } else if (header.id == R.id.trds_settings) {
+                        mTRDSSwitch = (Switch) view.findViewById(R.id.switchWidget);
+                        mTRDSEnabler.setSwitch(holder.switch_);
                     }
                     updateCommonHeaderView(header, holder);
                     break;
@@ -1019,12 +1052,16 @@ public class Settings extends PreferenceActivity
             mWifiEnabler.resume();
             mBluetoothEnabler.resume();
             mProfileEnabler.resume();
+            mTRDSEnabler.resume();
+            mGPSEnabler.resume();
         }
 
         public void pause() {
             mWifiEnabler.pause();
             mBluetoothEnabler.pause();
             mProfileEnabler.pause();
+            mTRDSEnabler.pause();
+            mGPSEnabler.pause();
         }
     }
 

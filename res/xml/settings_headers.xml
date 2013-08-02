@@ -36,6 +36,13 @@
         android:title="@string/bluetooth_settings_title"
         android:icon="@drawable/ic_settings_bluetooth2" />
 
+    <!-- Location -->
+    <header
+        android:fragment="com.android.settings.LocationSettings"
+        android:icon="@drawable/ic_settings_location"
+        android:title="@string/title_tile_gps"
+        android:id="@+id/location_settings" />
+
     <!-- Data Usage -->
     <header
         android:id="@+id/data_usage_settings"
@@ -71,6 +78,14 @@
             android:targetPackage="com.tmobile.themechooser"
             android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
+    <header android:id="@+id/pac_section"
+        android:title="@string/pac_man_title" />
+
+    <header
+        android:id="@+id/pac_settings"
+        android:icon="@drawable/ic_settings_pac"
+        android:title="@string/pac_man_title"
+        android:fragment="com.android.settings.PacManSettings" />
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
@@ -146,6 +161,16 @@
         android:breadCrumbTitle="@string/more_device_settings_title"
         android:fragment="com.android.settings.cyanogenmod.MoreDeviceSettings"
         android:icon="@drawable/empty_icon" />
+
+    <!-- DeviceParts Device Specific settings -->
+    <header
+        android:id="@+id/advanced_settings"
+        android:title="@string/advanced_settings_title"
+        android:icon="@drawable/ic_settings_advanced">
+        <intent
+            android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
+            android:targetPackage="com.cyanogenmod.settings.device"
+            android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
 
     <!-- PERSONAL -->
     <header android:id="@+id/personal_section"
