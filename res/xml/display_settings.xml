@@ -31,6 +31,16 @@
                     android:fragment="com.android.settings.cyanogenmod.DisplayRotation"
                     android:title="@string/display_rotation_title" />
 
+    <PreferenceCategory
+        android:key="category_animation_options"
+        android:title="@string/display_category_animation_options_title" >
+
+        <PreferenceScreen
+            android:id="@+id/animations"
+            android:title="@string/title_animation_controls"
+            android:summary="@string/header_summary_animation"
+            android:fragment="com.android.settings.cyanogenmod.fragments.AnimationControls" />
+
             <ListPreference
                     android:key="screen_timeout"
                     android:title="@string/screen_timeout"
@@ -80,6 +90,18 @@
                 android:defaultValue="false" />
 
         </PreferenceCategory>
+	
+    <PreferenceCategory
+        android:key="category_animation_options"
+        android:title="@string/display_category_animation_options_title" >
+
+        <PreferenceScreen
+            android:id="@+id/animations"
+            android:title="@string/title_animation_controls"
+            android:summary="@string/header_summary_animation"
+            android:fragment="com.android.settings.cyanogenmod.fragments.AnimationControls" />
+
+	</PreferenceCategory>
 
         <PreferenceCategory
             android:key="lights_prefs"
