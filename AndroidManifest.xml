@@ -991,7 +991,7 @@
                 android:resource="@id/security_settings" />
         </activity>
 
-        <!-- Keep compatibility with old shortcuts. -->
+        Keep compatibility with old shortcuts. -->
         <activity-alias android:name="SecuritySettings"
                 android:label="@string/security_settings_title"
                 android:configChanges="orientation|keyboardHidden|screenSize"
