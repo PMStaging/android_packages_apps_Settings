@@ -284,4 +284,4 @@
         android:icon="@drawable/ic_settings_about"
         android:title="@string/about_settings" />
 
-</preference-headers>
+ </preference-headers>

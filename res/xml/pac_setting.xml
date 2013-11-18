@@ -42,13 +42,13 @@
             android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
-    <!-- Launcher -->
+    <!-- Launcher 
     <header
         android:id="@+id/launcher_settings"
         android:title="@string/launcher_settings_title"
         android:icon="@drawable/ic_settings_cmlauncher" />
 
-    <!-- Hybrid options -->
+        Hybrid options
     <header
         android:id="@+id/hybrid_settings"
         android:icon="@drawable/ic_settings_hybrid"
@@ -58,6 +58,7 @@
             android:targetPackage="com.paranoid.preferences"
             android:targetClass="com.paranoid.preferences.MainActivity" />
     </header>
+    -->
 
     <header android:title="@string/user_interface" />
 
@@ -68,7 +69,7 @@
         android:icon="@drawable/ic_rom_control_general_ui"
         android:summary="@string/header_summary_general_ui" />
 
-    <header
+    <!-- <header
         android:id="@+id/lockscreen"
         android:fragment="com.android.settings.aokp.fragments.Lockscreens"
         android:title="@string/lockscreen_options"
@@ -81,6 +82,7 @@
         android:icon="@drawable/ic_settings_lock_screen"
         android:title="@string/lock_screen_settings_widgets"
         android:summary="@string/header_summary_lockscreens" />
+	  -->
 
     <header
         android:id="@+id/nav_bar"
@@ -128,12 +130,13 @@
         android:id="@+id/statusbar"
         android:title="@string/header_statusbar" />
 
-    <header
+    <!-- <header
         android:id="@+id/notification_drawer"
         android:fragment="com.android.settings.cyanogenmod.PowerWidget"
         android:icon="@drawable/ic_rom_control_notification"
         android:title="@string/notification_drawer_title"
         android:summary="@string/header_summary_drawer" />
+	  -->
 
     <header
         android:id="@+id/statusbar_toggles"
@@ -170,18 +173,19 @@
         android:summary="@string/header_summary_weather"
         android:icon="@drawable/ic_rom_control_weather" />
 
-    <header
+    <!-- <header
         android:id="@+id/status_bar_misc"
         android:fragment="com.android.settings.pac.StatusBarSettings"
         android:title="@string/status_bar_miscellaneous"
         android:summary="@string/header_summary_statusbar_misc"
         android:icon="@drawable/ic_settings_status_bar" />
+	  -->
 
     <header
         android:id="@+id/system"
         android:title="@string/header_system" />
 
-    <header
+    <!-- <header
         android:id="@+id/permissions_settings"
         android:icon="@drawable/ic_settings_permissions"
         android:title="@string/permissions_settings_title">
@@ -190,13 +194,15 @@
             android:targetPackage="org.chameleonos.permissionsmanager"
             android:targetClass="org.chameleonos.permissionsmanager.activity.PermissionManagerActivity" />
     </header>
+    -->
 
-    <header
+    <!-- <header
         android:id="@+id/hardware_keys"
         android:fragment="com.android.settings.cyanogenmod.HardwareKeys"
         android:icon="@drawable/ic_rom_control_keys"
         android:title="@string/hardware_keys_title"
         android:summary="@string/header_summary_keys" />
+	  -->
 
     <header
         android:id="@+id/led"
