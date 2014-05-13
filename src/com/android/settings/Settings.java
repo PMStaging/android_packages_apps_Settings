@@ -154,6 +154,12 @@ public class Settings extends PreferenceActivity
     private Header mParentHeader;
     private boolean mInLocalHeaderSwitch;
 
+    // TODO need to add a toggle ( actionbar switch in 2 of 2 )
+    // hide these when we are in "Simple Mode"
+    private int[] NON_AOSP_HEADERS = {
+            R.id.pac_console
+    };
+
     // Show only these settings for restricted users
     private int[] SETTINGS_FOR_RESTRICTED = {
             R.id.wireless_section,
@@ -585,6 +591,10 @@ public class Settings extends PreferenceActivity
         final boolean showDev = mDevelopmentPreferences.getBoolean(
                 DevelopmentSettings.PREF_SHOW,
                 android.os.Build.TYPE.equals("eng"));
+                
+        final boolean showAosp = mDevelopmentPreferences.getBoolean(
+                DevelopmentSettings.AOSP_SHOW, false);
+
         int i = 0;
 
         final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
@@ -685,6 +695,12 @@ public class Settings extends PreferenceActivity
             if (i < target.size() && target.get(i) == header
                     && UserHandle.MU_ENABLED && UserHandle.myUserId() != 0
                     && !ArrayUtils.contains(SETTINGS_FOR_RESTRICTED, id)) {
+                target.remove(i);
+            }
+
+            // only show AOSP headers?
+            if (i < target.size() && target.get(i) == header
+                    && ArrayUtils.contains(NON_AOSP_HEADERS, id) && showAosp) {
                 target.remove(i);
             }
 
@@ -1139,6 +1155,30 @@ public class Settings extends PreferenceActivity
             highlightHeader((int) mLastHeader.id);
         } else {
             mLastHeader = header;
+        }
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        menu.getItem(R.id.aosp_settings_only).setChecked(DevelopmentSettings.AOSP_SHOW, !mDevelopmentPreferences.getBoolean(
+                    DevelopmentSettings.AOSP_SHOW, false));
+        return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.aosp_settings_only:
+                mDevelopmentPreferences.getEditor().setBoolean(DevelopmentSettings.AOSP_SHOW, !mDevelopmentPreferences.getBoolean(
+                    DevelopmentSettings.AOSP_SHOW, false)).store();
+                invalidateHeaders();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
