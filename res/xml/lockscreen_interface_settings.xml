@@ -89,6 +89,11 @@
         android:title="@string/misc_category"
         android:key="lockscreen_misc_category" >
 
+       <PreferenceScreen
+            android:id="@+id/lockscreen_notifcation_settings"
+            android:fragment="com.android.settings.pac.lsn.LockscreenNotifications"
+            android:title="@string/lockscreen_notifications" />
+
         <!-- See Through -->
         <com.android.settings.pac.SystemSettingCheckBoxPreference
             android:key="lockscreen_see_through"
