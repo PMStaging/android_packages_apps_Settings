@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.aokp.romcontrol.R;
+import com.aokp.romcontrol.settings.ColorPickerSetting;
 
 public class ColorPickerDialog
         extends
@@ -42,7 +43,7 @@ public class ColorPickerDialog
 
     private EditText mHex;
     private Button mSetButton;
-    private Button mIcsColor;
+    private Button mDefaultColor;
 
     private OnColorChangedListener mListener;
 
@@ -80,7 +81,7 @@ public class ColorPickerDialog
         mNewColor = (ColorPickerPanelView) layout.findViewById(R.id.new_color_panel);
         mHex = (EditText) layout.findViewById(R.id.hex);
         mSetButton = (Button) layout.findViewById(R.id.enter);
-        mIcsColor = (Button) layout.findViewById(R.id.ics_color);
+        mDefaultColor = (Button) layout.findViewById(R.id.default_color);
 
         ((LinearLayout) mOldColor.getParent()).setPadding(
                 Math.round(mColorPicker.getDrawingOffset()),
@@ -94,25 +95,25 @@ public class ColorPickerDialog
         mColorPicker.setOnColorChangedListener(this);
         mOldColor.setColor(color);
         mColorPicker.setColor(color, true);
-        mHex.setText(ColorPickerPreference.convertToARGB(color));
+        mHex.setText(ColorPickerSetting.convertToARGB(color));
         mSetButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String text = mHex.getText().toString();
                 try {
-                    int newColor = ColorPickerPreference.convertToColorInt(text);
+                    int newColor = ColorPickerSetting.convertToColorInt(text);
                     mColorPicker.setColor(newColor, true);
                 } catch (Exception e) {
                 }
             }
         });
-        mIcsColor.setOnClickListener(new View.OnClickListener() {
+        mDefaultColor.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 try {
-                    int newColor = 0xFF33B5E5;
+                    int newColor = 0xFFFFFFFF;
                     mColorPicker.setColor(newColor, true);
                 } catch (Exception e) {
                 }
@@ -126,7 +127,7 @@ public class ColorPickerDialog
 
         mNewColor.setColor(color);
         try {
-            mHex.setText(ColorPickerPreference.convertToARGB(color));
+            mHex.setText(ColorPickerSetting.convertToARGB(color));
         } catch (Exception e) {
 
         }
