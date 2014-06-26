@@ -75,6 +75,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         mLockscreenNotifications = (SwitchPreference) prefs.findPreference(KEY_LOCKSCREEN_NOTIFICATIONS);;
         mLockscreenNotifications.setChecked(Settings.PAC.getInt(cr,
                 Settings.PAC.LOCKSCREEN_NOTIFICATIONS, 0) == 1);
+        mLockscreenNotifications.setOnPreferenceChangeListener(this);
 
         mPocketMode = (CheckBoxPreference) prefs.findPreference(KEY_POCKET_MODE);
         mPocketMode.setChecked(Settings.PAC.getInt(cr,
@@ -166,10 +167,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         ContentResolver cr = getActivity().getContentResolver();
-        if (preference == mLockscreenNotifications) {
-            Settings.PAC.putInt(cr, Settings.PAC.LOCKSCREEN_NOTIFICATIONS,
-                    mLockscreenNotifications.isChecked() ? 1 : 0);
-        } else if (preference == mPocketMode) {
+        if (preference == mPocketMode) {
             Settings.PAC.putInt(cr, Settings.PAC.LOCKSCREEN_NOTIFICATIONS_POCKET_MODE,
                     mPocketMode.isChecked() ? 1 : 0);
             mShowAlways.setEnabled(mPocketMode.isChecked());
@@ -234,7 +232,11 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object value) {
-        if (pref == mNotificationsHeight) {
+        if (pref == mLockscreenNotifications) {
+            Settings.PAC.putInt(getContentResolver(),
+                    Settings.PAC.LOCKSCREEN_NOTIFICATIONS,
+                    ((Boolean) value).booleanValue() ? 1 : 0);
+        } else if (pref == mNotificationsHeight) {
             Settings.PAC.putInt(getContentResolver(),
                     Settings.PAC.LOCKSCREEN_NOTIFICATIONS_HEIGHT, (Integer)value);
         } else if (pref == mOffsetTop) {
