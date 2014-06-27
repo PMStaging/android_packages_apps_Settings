@@ -592,6 +592,10 @@
     <string name="settings_label">Settings</string>
     <!-- Title of the Settings activity shown in the Launcher. [CHAR LIMIT=20] -->
     <string name="settings_label_launcher">Settings</string>
+    <!-- System tab title. [CHAR LIMIT=20] -->
+    <string name="system_label">System</string>
+    <!-- PAC tab title. [CHAR LIMIT=20] -->
+    <string name="pac_label">PAC-man</string>
     <!-- Label for option to select a settings panel as a shortcut -->
     <string name="settings_shortcut">Settings shortcut</string>
     <!-- Wireless controls settings screen, setting check box label -->
@@ -4921,6 +4925,9 @@
 
     <!-- Cell Broadcast settings title [CHAR LIMIT=50] -->
     <string name="cell_broadcast_settings">Cell broadcasts</string>
+
+    <!-- About phone titles -->
+    <string name="pac_man_title">PAC-man</string>
 
     <!-- User app limits screen title [CHAR LIMIT=35] -->
     <string name="user_restrictions_title">Application and content restrictions</string>

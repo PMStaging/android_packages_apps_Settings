@@ -886,6 +886,7 @@ public class Settings extends PreferenceActivity
             TextView title;
             TextView summary;
             Switch switch_;
+            TextView status_;
             ImageButton button_;
             View divider_;
         }
@@ -990,6 +991,17 @@ public class Settings extends PreferenceActivity
                                 view.findViewById(com.android.internal.R.id.summary);
                         holder.button_ = (ImageButton) view.findViewById(R.id.buttonWidget);
                         holder.divider_ = view.findViewById(R.id.divider);
+                        break;
+
+                    case HEADER_TYPE_STATUS:
+                        view = mInflater.inflate(R.layout.preference_header_status_item, parent,
+                                false);
+                        holder.icon = (ImageView) view.findViewById(R.id.icon);
+                        holder.title = (TextView)
+                                view.findViewById(com.android.internal.R.id.title);
+                        holder.summary = (TextView)
+                                view.findViewById(com.android.internal.R.id.summary);
+                        holder.status_ = (TextView) view.findViewById(R.id.textStatus);
                         break;
 
                     case HEADER_TYPE_NORMAL:
