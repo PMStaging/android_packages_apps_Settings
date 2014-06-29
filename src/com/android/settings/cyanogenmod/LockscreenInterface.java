@@ -47,6 +47,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String KEY_ENABLE_MAXIMIZE_WIGETS = "lockscreen_maximize_widgets";
     private static final String KEY_LOCKSCREEN_MODLOCK_ENABLED = "lockscreen_modlock_enabled";
     private static final String KEY_LOCKSCREEN_TARGETS = "lockscreen_targets";
+    private static final String KEY_LOCKSCREEN_SEE_THROUGH = "lockscreen_see_through";
 
     private CheckBoxPreference mEnableKeyguardWidgets;
     private CheckBoxPreference mEnableCameraWidget;
@@ -54,6 +55,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private CheckBoxPreference mEnableMaximizeWidgets;
     private ListPreference mBatteryStatus;
     private Preference mLockscreenTargets;
+    private CheckBoxPreference mSeeThrough;
 
     private ChooseLockSettingsHelper mChooseLockSettingsHelper;
     private LockPatternUtils mLockUtils;
@@ -79,6 +81,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mEnableCameraWidget = (CheckBoxPreference) findPreference(KEY_ENABLE_CAMERA);
         mEnableMaximizeWidgets = (CheckBoxPreference) findPreference(KEY_ENABLE_MAXIMIZE_WIGETS);
         mLockscreenTargets = findPreference(KEY_LOCKSCREEN_TARGETS);
+        mSeeThrough = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_SEE_THROUGH);
 
         mEnableModLock = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_MODLOCK_ENABLED);
         if (mEnableModLock != null) {
@@ -220,6 +223,10 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             // force it so update picks up correct values
             ((CheckBoxPreference) preference).setChecked(value);
             updateAvailableModLockPreferences();
+            return true;
+        } else if (preference == mSeeThrough) {
+            Settings.PAC.putInt(getContentResolver(), Settings.PAC.LOCKSCREEN_SEE_THROUGH,
+                    mSeeThrough.isChecked() ? 1 : 0);
             return true;
         }
 
