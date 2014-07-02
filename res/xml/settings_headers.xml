@@ -135,6 +135,9 @@
             android:targetClass="com.cyanogenmod.settings.device.TouchscreenGestureSettings" />
     </header>
 
+    <!-- Additional PAC-Rom Settings -->
+    <header android:title="@string/header_category_rom_settings" />
+
     <!-- PAC Console -->
     <header
         android:id="@+id/pac_console"
@@ -145,6 +148,13 @@
             android:targetPackage="com.pac.console"
             android:targetClass="com.pac.console.PacConsole" />
     </header>
+
+    <!-- Interface -->
+    <header
+        android:id="@+id/interface_settings"
+        android:icon="@drawable/ic_settings_interface"
+        android:fragment="com.android.settings.pac.PacUiSettings"
+        android:title="@string/interface_settings_title" />
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
